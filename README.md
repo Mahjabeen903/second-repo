@@ -1,4 +1,4 @@
 # second-repo
-This is my second repository
+This is my second Git repository
 <br>
 Author - Mahjbeen
