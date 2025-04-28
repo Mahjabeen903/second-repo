@@ -1,0 +1,81 @@
+import math
+
+def evaluate_expression(expression):
+    try:
+        result = eval(expression)
+        return result
+    except ZeroDivisionError:
+        return "Error: Division by zero."
+    except Exception as e:
+        return f"Error: {e}"
+
+def factorial(n):
+    if n < 0:
+        return "Error: Factorial of negative number!"
+    if n == 0 or n == 1:
+        return 1
+    result = 1
+    for i in range(2, n+1):
+        result *= i
+    return result
+
+def sin(x):
+    # x in degrees, convert to radians manually
+    radians = x * (3.141592653589793 / 180)
+    term = radians
+    result = radians
+    for i in range(1, 10):
+        term *= (-1) * radians * radians / (2 * i * (2 * i + 1))
+        result += term
+    return result
+
+def cos(x):
+    radians = x * (3.141592653589793 / 180)
+    term = 1
+    result = 1
+    for i in range(1, 10):
+        term *= (-1) * radians * radians / (2 * i * (2 * i - 1))
+        result += term
+    return result
+
+def tan(x):
+    cosine = cos(x)
+    if cosine == 0:
+        return "Error: tan undefined for 90°, 270°, etc."
+    return sin(x) / cosine
+
+def calculator():
+    print("Advanced University-Level Calculator")
+    print("--------------------------------------")
+    print("Supported:")
+    print("- Standard operations: +, -, *, /, **, %")
+    print("- Trigonometric: sin(x), cos(x), tan(x) (input in degrees)")
+    print("- Factorial: fact(n)")
+    print("- Full algebraic expressions")
+    
+    while True:
+        print("\nEnter 'quit' to exit.")
+        expr = input("Enter expression: ")
+
+        if expr.lower() == 'quit':
+            print("Exiting calculator. Goodbye!")
+            break
+
+        # Handling special functions manually
+        if expr.startswith("sin(") and expr.endswith(")"):
+            angle = float(expr[4:-1])
+            print("Result:", sin(angle))
+        elif expr.startswith("cos(") and expr.endswith(")"):
+            angle = float(expr[4:-1])
+            print("Result:", cos(angle))
+        elif expr.startswith("tan(") and expr.endswith(")"):
+            angle = float(expr[4:-1])
+            print("Result:", tan(angle))
+        elif expr.startswith("fact(") and expr.endswith(")"):
+            number = int(expr[5:-1])
+            print("Result:", factorial(number))
+        else:
+            print("Result:", evaluate_expression(expr))
+
+if __name__ == "__main__":
+    calculator()
